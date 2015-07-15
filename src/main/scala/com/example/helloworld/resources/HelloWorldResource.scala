@@ -13,8 +13,8 @@ class HelloWorldResource(template: String, defaultName: String) {
   var counter: AtomicLong = _
   @GET
   @Timed
-  def sayHello(): Saying = {
-    
-    new Saying(1, "Andrew")
+  def sayHello(@QueryParam("name") name: Option[String]): Saying = {
+    val value = String.format(template, name.getOrElse(defaultName))
+    new Saying(1, value)
   }
 }
